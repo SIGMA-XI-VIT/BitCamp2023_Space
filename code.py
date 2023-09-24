@@ -22,6 +22,7 @@ class SpaceDebrisSimulator:
         self.figure, self.ax = plt.subplots()
         self.canvas = FigureCanvasTkAgg(self.figure, master=master)
         self.canvas.get_tk_widget().grid(row=3, column=0, columnspan=2)
+        
     def simulate_motion(self):
         try:
             initial_position = tuple(map(float, self.entry_position.get().split(',')))
@@ -38,6 +39,7 @@ class SpaceDebrisSimulator:
             self.plot_positions(positions)
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {e}")
+            
     def plot_positions(self, positions):
         self.ax.clear()
         x, y, z = zip(*positions)
@@ -52,8 +54,10 @@ class SpaceDebris:
         self.id = id
         self.position = position
         self.velocity = velocity
+        
     def update_position(self, delta_t):
         self.position = tuple(p + v * delta_t for p, v in zip(self.position, self.velocity))
+        
 root = tk.Tk()
 app = SpaceDebrisSimulator(root)
 root.mainloop()
